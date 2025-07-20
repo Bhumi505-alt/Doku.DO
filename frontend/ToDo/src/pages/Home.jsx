@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { Context } from "../main";
 import toast from "react-hot-toast";
+import axiosInstance from "../lib/api";
 
 export default function Home() {
   const { isAuthenticated, loader, setloader } = useContext(Context);
@@ -15,7 +16,7 @@ export default function Home() {
   const fetchTasks = async () => {
     setloader(true);
     try {
-      const { data } = await axios.get("http://localhost:4000/tasks/my", {
+      const { data } = await axiosInstance.get("/tasks/my", {
         withCredentials: true,
       });
       setTasks(data.tasks);
@@ -34,16 +35,16 @@ export default function Home() {
     setloader(true);
     try {
       if (updatingId) {
-        const { data } = await axios.put(
-          `http://localhost:4000/tasks/${updatingId}`,
+        const { data } = await axiosInstance.put(
+          `/tasks/${updatingId}`,
           { title, description },
           { withCredentials: true }
         );
         toast.success(data.message);
         setUpdatingId(null);
       } else {
-        const { data } = await axios.post(
-          "http://localhost:4000/tasks/new",
+        const { data } = await axiosInstance.post(
+          "/tasks/new",
           { title, description },
           { withCredentials: true }
         );
@@ -61,8 +62,8 @@ export default function Home() {
   const deleteHandler = async (id) => {
     setloader(true);
     try {
-      const { data } = await axios.delete(
-        `http://localhost:4000/tasks/${id}`,
+      const { data } = await axiosInstance.delete(
+        `/tasks/${id}`,
         { withCredentials: true }
       );
       toast.success(data.message);
@@ -82,8 +83,8 @@ export default function Home() {
   const toggleComplete = async (task) => {
     setloader(true);
     try {
-      const { data } = await axios.put(
-        `http://localhost:4000/tasks/${task._id}`,
+      const { data } = await axiosInstance.put(
+        `/tasks/${task._id}`,
         { completed: !task.completed },
         { withCredentials: true }
       );

@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { Context } from "../main";
 import toast from "react-hot-toast";
 import axios from "axios";
+import axiosInstance from "../lib/api";
 
 
 
@@ -19,8 +20,8 @@ const submitHandler = async (e) => {
   setloader(true);
   setError(null);
   try {
-    const { data } = await axios.post(
-      "http://localhost:4000/users/login",
+    const { data } = await axiosInstance.post(
+      "/users/login",
       {
      
         email,
