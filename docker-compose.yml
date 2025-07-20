@@ -1,0 +1,27 @@
+version: "3"
+services:
+  backend:
+    build: ./backend
+    container_name: ta-da-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - ta-da-network
+
+  frontend:
+    build: ./frontend/ToDo
+    container_name: ta-da-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://backend:4000
+    depends_on:
+      - backend
+    networks:
+      - ta-da-network
+
+networks:
+  ta-da-network:
+    driver: bridge
