@@ -67,7 +67,7 @@ if(isAuthenticated) return <Navigate to="/" />
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Welcome back to <span className="text-blue-600">TA</span>•DA
+          Welcome back to <span className="text-blue-600">Doku</span>•Do
         </h2>
 
         <form className="flex flex-col gap-4 " onSubmit={submitHandler}>
